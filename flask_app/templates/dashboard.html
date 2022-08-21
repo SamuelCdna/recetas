@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>dashboard</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" 
+    rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+</head>
+<body>
+        <div class="container">
+            <header class="d-flex justify-content-between align-items-center">
+                <h1>Bienvenido!{{user.first_name}}!</h1>
+                <a href="/create_recipe" class="btn btn-primary">Nueva receta </a>
+                <a href="/logout" class="btn btn-danger">logout</a>
+            </header>
+            <h3>recetas agregadas!</h3>
+        </div>
+        <div class="container">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">name</th>
+                        <th scope="col">Under 30</th>
+                        <th scope="col">posted by</th>
+                        <th scope="col">action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for recipe in recipes %}
+                    <tr>
+                        <td>{{recipe.name}}</td>
+                        <td>
+                            {% if recipe.under == 0 %}
+                                NO
+                            {% else %}
+                                SI
+                            {% endif %}
+                        </td>
+                        <td>{{recipe.first_name}}</td>
+                        <td>
+                            <a href="/view/recipe/{{recipe.id}}" class="btn btn-warning">Ver Receta</a>
+                            {% if recipe.id == user.id %}
+                                <a href="/edit/recipe/{{recipe.id}}" class="btn btn-primary">Editar</a>
+                                <a href="/delete/recipe/{{recipe.id}}" class="btn btn-danger">Borrar</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+</body>
+</html>
